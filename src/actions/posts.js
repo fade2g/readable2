@@ -1,4 +1,4 @@
-import {fetchPostCommets, fetchPosts, postVote} from "../util/api";
+import {fetchPostComments, fetchPosts, postVote} from "../util/api";
 
 export const LOAD_POSTS = 'LOAD_POSTS';
 export const LOAD_COMMENTS = 'LOAD_COMMENTS';
@@ -32,7 +32,7 @@ function loadCommentsDispatch(postId, comments) {
 
 export const loadPostCommentsFetch = (dispatch) => {
   return function (postId) {
-    fetchPostCommets(postId)
+    fetchPostComments(postId)
       .then(response => {
         return dispatch(loadCommentsDispatch(postId, response))
       })

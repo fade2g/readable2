@@ -44,7 +44,7 @@ export const fetchPosts = function (category) {
   return basicGetBuilder.invoke(url);
 };
 
-export const fetchPostCommets = function (postId) {
+export const fetchPostComments = function (postId) {
   return basicGetBuilder.invoke(`${baseUrl}/posts/${postId}/comments`);
 };
 
