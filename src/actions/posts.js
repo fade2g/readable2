@@ -1,9 +1,10 @@
-import {fetchPost, fetchPostComments, fetchPosts, postVote} from "../util/api";
+import {fetchPost, fetchPostComments, fetchPosts, postCommentVote, postVote} from "../util/api";
 
 export const LOAD_POSTS = 'LOAD_POSTS';
 export const LOAD_POST = 'LOAD_POST';
 export const LOAD_COMMENTS = 'LOAD_COMMENTS';
 export const UPDATE_POST = 'UPDATE_POST';
+export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 
 function loadPostsDispatch(posts) {
   return {
@@ -74,6 +75,25 @@ export function votePostUpdate(dispatch) {
     return function () {
       postVote(postId, up)
         .then(response => dispatch(votePost(postId, response)))
+    }
+  }
+}
+
+function voteComment(postId, updatedComment) {
+  return {
+    type: UPDATE_COMMENT,
+    payload: {
+      postId: postId,
+      comment: updatedComment
+    }
+  }
+}
+
+export function voteCommentUpdate(dispatch) {
+  return function (commentId, up) {
+    return function() {
+      postCommentVote(commentId, up)
+        .then(response => dispatch(voteComment(response.parentId, response)))
     }
   }
 }

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types'
 import Moment from 'react-moment';
+import {voteCommentUpdate} from "../actions/posts";
+import {connect} from "react-redux";
 
 class PostComment extends Component {
 
@@ -14,14 +16,16 @@ class PostComment extends Component {
     return (
       <div className="comment">
         <div className="content">
-          <a className="author">{comment.author}</a>
+          <span className="author">{comment.author}</span>
           <div className="metadata">
-            <span className="date"><Moment fromNow>{new Date(comment.timestamp)}</Moment></span>
+            {comment.voteScore} points, <span className="date"><Moment fromNow>{new Date(comment.timestamp)}</Moment></span>
           </div>
           <div className="text">
             {comment.body}
           </div>
           <div className="actions">
+            <i className="rdbl stacked caret up icon" onClick={this.props.vote(comment.id, true)}/>
+            <i className="rdbl stacked caret down icon" onClick={this.props.vote(comment.id, false)}/>
             <a className="reply">Reply</a>
           </div>
         </div>
@@ -30,4 +34,16 @@ class PostComment extends Component {
   }
 }
 
-export default PostComment
+function mapStateToProps({}) {
+  return {
+
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    vote: voteCommentUpdate(dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostComment);

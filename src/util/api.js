@@ -6,7 +6,7 @@ class FetchBuilder {
   }
 
   addConfig = function (config) {
-    Object.assign( this.config, config);
+    Object.assign(this.config, config);
     return new FetchBuilder(this.config)
   };
 
@@ -33,25 +33,33 @@ const basicGetBuilder = basicFetchBuilder.addConfig({method: 'GET'});
 const basicPostBuilder = basicFetchBuilder.addConfig({method: 'POST'});
 
 export const fetchCategories = function () {
-    return basicGetBuilder.invoke(`${baseUrl}/categories`);
-  };
+  return basicGetBuilder.invoke(`${baseUrl}/categories`);
+};
 
 export const fetchPosts = function (category) {
-    const url = category ? `${baseUrl}/${category}/posts/` : `${baseUrl}/posts/`;
-    return basicGetBuilder.invoke(url);
-  };
+  const url = category ? `${baseUrl}/${category}/posts/` : `${baseUrl}/posts/`;
+  return basicGetBuilder.invoke(url);
+};
 
 export const fetchPost = (postId) => {
   return basicGetBuilder.invoke(`${baseUrl}/posts/${postId}`);
 };
 
 export const fetchPostComments = function (postId) {
-    return basicGetBuilder.invoke(`${baseUrl}/posts/${postId}/comments`);
-  };
+  return basicGetBuilder.invoke(`${baseUrl}/posts/${postId}/comments`);
+};
 
 export const postVote = function (postId, up) {
-    const payload = {
-      option: up ? "upVote" : "downVote"
-    };
-    return basicPostBuilder.addConfig({body: JSON.stringify(payload)}).invoke(`${baseUrl}/posts/${postId}`);
+  const payload = {
+    option: up ? "upVote" : "downVote"
   };
+  return basicPostBuilder.addConfig({body: JSON.stringify(payload)}).invoke(`${baseUrl}/posts/${postId}`);
+};
+
+export const postCommentVote = function (commentId, up) {
+  const payload = {
+    option: up ? "upVote" : "downVote"
+  };
+  return basicPostBuilder.addConfig({body: JSON.stringify(payload)}).invoke(`${baseUrl}/comments/${commentId}`);
+
+};

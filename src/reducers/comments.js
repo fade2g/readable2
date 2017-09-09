@@ -1,4 +1,4 @@
-import {LOAD_COMMENTS} from "../actions/posts";
+import {LOAD_COMMENTS, UPDATE_COMMENT} from "../actions/posts";
 
 export function comments(state = {}, action) {
   const {type, payload} = action;
@@ -8,6 +8,11 @@ export function comments(state = {}, action) {
         ...state,
         [payload.postId]: payload.comments
         };
+    case UPDATE_COMMENT:
+      return {
+      ...state,
+      [payload.postId]: state[payload.postId].map(comment => comment.id === payload.comment.id ? payload.comment : comment)
+    };
     default:
       return state;
   }
