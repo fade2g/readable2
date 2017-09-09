@@ -21,8 +21,11 @@ class PostsView extends Component {
     if (!this.props.posts) {
       return null;
     }
+    const postsArray = Object.values(this.props.posts).sort((post1, post2) => {
+      return post1.voteScore > post2.voteScore;
+    });
     return (<div className="posts-view very padded text container segment">
-      {this.props.posts && Object.values(this.props.posts).map(post => {
+      {postsArray.map(post => {
         return (<PostPreview key={post.id} post={post}/>)
       })}
     </div>)
