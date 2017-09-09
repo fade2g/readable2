@@ -21,10 +21,9 @@ class PostsView extends Component {
     if (!this.props.posts) {
       return null;
     }
-    return (<div className="posts-view">
-      this is the posts view
+    return (<div className="posts-view very padded text container segment">
       {this.props.posts && Object.values(this.props.posts).map(post => {
-        return (<div key={post.id}><PostPreview post={post}/> </div>)
+        return (<PostPreview key={post.id} post={post}/>)
       })}
     </div>)
   }

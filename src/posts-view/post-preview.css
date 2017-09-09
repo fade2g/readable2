@@ -1,0 +1,21 @@
+.rdbl.header {
+  display: inline;
+}
+
+.rdbl.header h2 {
+  display: inline;
+}
+
+
+.rdbl.post-preview .post.content,
+.rdbl.post-preview .post.controls {
+  display: inline-block;
+}
+
+.rdbl.post-preview .post.controls {
+  vertical-align: top;
+}
+
+.rdbl.post-preview .post.controls > i{
+  display: block;
+}

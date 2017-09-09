@@ -3,6 +3,8 @@ import {loadPostCommentsFetch} from "../actions/posts";
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
+import Moment from "react-moment";
+import "./post-preview.css";
 
 class PostPreview extends Component {
 
@@ -16,11 +18,18 @@ class PostPreview extends Component {
 
   render() {
     const {post, comments} = this.props;
-    console.log(comments);
     return (
-      <div className="post-preview">
-        id:{post.id} - <Link to={`/post/${post.id}`}>title:{post.title}</Link> - cat:{post.category} - #comments: {comments[post.id] ? comments[post.id].length : 'none'}
-      </div>);
+      <article className="rdbl post-preview ui raised segment">
+        <div className="rdbl post controls">
+          <i className="rdbl stacked caret up icon"/><i className="rdbl stacked caret down icon"/>
+        </div>
+        <div className="rdbl post content">
+          <h2 className="ui small header"><Link to={`/post/${post.id}`}><b>{post.title}</b></Link></h2>
+          <div>
+            {post.voteScore} points by {post.author} <Moment fromNow>{new Date(post.timestamp)}</Moment>, <Link to={`/post/${post.id}`}>{comments[post.id] ? comments[post.id].length : 'no'} comments</Link>
+          </div>
+        </div>
+      </article>);
   }
 }
 
