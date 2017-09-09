@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {loadPostsFetch} from "../actions/posts";
 import {withRouter} from "react-router-dom";
 import PostPreview from "./post-preview.component";
+import {SORT_ORDER_DESC} from "../actions/ui";
 
 class PostsView extends Component {
 
@@ -21,8 +22,9 @@ class PostsView extends Component {
     if (!this.props.posts) {
       return null;
     }
+    const {sortProperty, sortOrder} = this.props.ui;
     const postsArray = Object.values(this.props.posts).sort((post1, post2) => {
-      return post1.voteScore > post2.voteScore;
+      return sortOrder === SORT_ORDER_DESC ? post1[sortProperty] > post2[sortProperty] : post1[sortProperty] < post2[sortProperty];
     });
     return (<div className="posts-view very padded text container segment">
       {postsArray.map(post => {
@@ -32,9 +34,10 @@ class PostsView extends Component {
   }
 }
 
-function mapStateToProps({posts}) {
+function mapStateToProps({posts, ui}) {
   return {
-    posts
+    posts,
+    ui
   }
 }
 

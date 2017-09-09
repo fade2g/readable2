@@ -30,7 +30,6 @@ class App extends Component {
             <PostsView category={undefined}/>)
           }/>
           <Route path="/post/:postid" component={PostView}/>
-          <Link to="/">Go to home</Link>
         </div>
       </div>
     );
