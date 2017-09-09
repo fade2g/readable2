@@ -3,6 +3,7 @@ import './App.css';
 import {Route, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {loadCategoriesFetch} from "./actions/categories";
+import PostsView from "./posts-view/posts.component"
 
 class App extends Component {
 
@@ -13,6 +14,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        this is the main app
+        <Route path="/category/:category" component={PostsView}/>
+        <Route path="/post/:postid" component={PostsView}/>
       </div>
     );
   }
