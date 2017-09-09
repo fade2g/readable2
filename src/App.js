@@ -22,7 +22,6 @@ class App extends Component {
                        className="item">{cat.name}</Link>
         })}
         <div className="main container ui padded segment">
-          {/* <Route path="/category/:category" component={PostsView}/>*/}
           <Route path="/category/:category" render={(props) => (
             <PostsView category={props.match.params.category}/>)
           }/>
