@@ -29,7 +29,6 @@ const basicFetchBuilder = new FetchBuilder({
   }
 });
 
-
 const basicGetBuilder = basicFetchBuilder.addConfig({method: 'GET'});
 const basicPostBuilder = basicFetchBuilder.addConfig({method: 'POST'});
 
@@ -41,6 +40,10 @@ export const fetchPosts = function (category) {
     const url = category ? `${baseUrl}/${category}/posts/` : `${baseUrl}/posts/`;
     return basicGetBuilder.invoke(url);
   };
+
+export const fetchPost = (postId) => {
+  return basicGetBuilder.invoke(`${baseUrl}/posts/${postId}`);
+};
 
 export const fetchPostComments = function (postId) {
     return basicGetBuilder.invoke(`${baseUrl}/posts/${postId}/comments`);

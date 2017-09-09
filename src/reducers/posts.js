@@ -1,6 +1,6 @@
-import {LOAD_POSTS, UPDATE_POST} from "../actions/posts";
+import {LOAD_POST, LOAD_POSTS, UPDATE_POST} from "../actions/posts";
 
-export function posts(state = [], action) {
+export function posts(state = {}, action) {
   const {type, payload} = action;
   switch (type) {
     case LOAD_POSTS:
@@ -10,6 +10,7 @@ export function posts(state = [], action) {
           [post.id]: post
         }
       }, {});
+    case LOAD_POST:
     case UPDATE_POST:
       return {
         ...state,

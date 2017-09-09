@@ -23,12 +23,14 @@ class App extends Component {
         })}
         <div className="main container ui padded segment">
           <Route path="/category/:category" render={(props) => (
-            <PostsView category={props.match.params.category}/>)
-          }/>
+            <PostsView category={props.match.params.category}/>
+          )}/>
           <Route exact path="/" render={(props) => (
             <PostsView category={undefined}/>)
           }/>
-          <Route path="/post/:postid" component={PostView}/>
+          <Route path="/post/:postId" render={(props) => (
+            <PostView postId={props.match.params.postId}/>
+          )}/>
         </div>
       </div>
     );
