@@ -7,6 +7,7 @@ import PostComments from './comments';
 
 class PostView extends Component {
 
+  // noinspection JSUnusedGlobalSymbols
   static propTypes = {
     postId: PropTypes.string.isRequired
   };

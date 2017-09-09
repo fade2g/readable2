@@ -4,9 +4,10 @@ import Moment from 'react-moment';
 
 class PostComment extends Component {
 
+  // noinspection JSUnusedGlobalSymbols
   static propTypes = {
     comment: PropTypes.object
-  }
+  };
 
   render() {
     const {comment} = this.props;
