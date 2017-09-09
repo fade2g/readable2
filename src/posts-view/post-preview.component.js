@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {loadPostCommentsFetch} from "../actions/posts";
+import {loadPostCommentsFetch, votePostUpdate} from "../actions/posts";
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
@@ -21,7 +21,8 @@ class PostPreview extends Component {
     return (
       <article className="rdbl post-preview ui raised segment">
         <div className="rdbl post controls">
-          <i className="rdbl stacked caret up icon"/><i className="rdbl stacked caret down icon"/>
+          <i className="rdbl stacked caret up icon" onClick={this.props.vote(post.id, true)}/>
+          <i className="rdbl stacked caret down icon"  onClick={this.props.vote(post.id, false)}/>
         </div>
         <div className="rdbl post content">
           <h2 className="ui small header"><Link to={`/post/${post.id}`}><b>{post.title}</b></Link></h2>
@@ -42,7 +43,8 @@ function mapStateToProps({posts, comments}) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadComments: loadPostCommentsFetch(dispatch)
+    loadComments: loadPostCommentsFetch(dispatch),
+    vote: votePostUpdate(dispatch)
   }
 }
 

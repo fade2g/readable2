@@ -1,37 +1,57 @@
-function fetchConfigFactory(config) {
-  const finalConfig = Object.assign(config || {},
-    {
-      headers: {
-        'Authorization': 'whatever-you-want',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    });
-  return function (url) {
-    return fetch(url, finalConfig)
-      .then((response) => {
-        return response.json();
-      })
-      .catch((error) => {
-        console.log('this is bad', error)
-      })
-  }
+const baseUrl = 'http://localhost:5001';
+
+function fetchBuilder(initialConfig) {
+  let finalConfig = initialConfig;
+  return {
+    addConfig: function (config) {
+      finalConfig = Object.assign(
+        finalConfig || {},
+        config
+      );
+      return this
+    },
+    invoke: function (url) {
+      return fetch(url, finalConfig)
+        .then((response) => {
+          return response.json();
+        })
+        .catch((error) => {
+          console.log('this is bad', error)
+        })
+    }
+  };
 }
 
-const basicGet = fetchConfigFactory({method: 'GET'});
+const basicBuilder = fetchBuilder({
+  headers: {
+    'Authorization': 'whatever-you-want',
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  }
+});
 
-const baseUrl = 'http://localhost:5001';
+const basicGetBuilder = basicBuilder.addConfig({method: 'GET'});
+const basicPostBuilder = basicBuilder.addConfig({method: 'POST'});
+
 
 
 export const fetchCategories = function () {
-  return basicGet(`${baseUrl}/categories`);
+  return basicGetBuilder.invoke(`${baseUrl}/categories`);
 };
 
 export const fetchPosts = function (category) {
   const url = category ? `${baseUrl}/${category}/posts/` : `${baseUrl}/posts/`;
-  return basicGet(url);
+  return basicGetBuilder.invoke(url);
 };
 
 export const fetchPostCommets = function (postId) {
-  return basicGet(`${baseUrl}/posts/${postId}/comments`);
+  return basicGetBuilder.invoke(`${baseUrl}/posts/${postId}/comments`);
 };
+
+export const postVote = function (postId, up) {
+  const payload = {
+    option: up ? "upVote" : "downVote"
+  };
+  return basicPostBuilder.addConfig({body: JSON.stringify(payload)}).invoke(`${baseUrl}/posts/${postId}`);
+};
+

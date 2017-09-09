@@ -1,7 +1,8 @@
-import {fetchPostCommets, fetchPosts} from "../util/api";
+import {fetchPostCommets, fetchPosts, postVote} from "../util/api";
 
 export const LOAD_POSTS = 'LOAD_POSTS';
 export const LOAD_COMMENTS = 'LOAD_COMMENTS';
+export const UPDATE_POST = 'UPDATE_POST';
 
 function loadPostsDispatch(posts) {
   return {
@@ -37,3 +38,22 @@ export const loadPostCommentsFetch = (dispatch) => {
       })
   }
 };
+
+function votePost(postId, updatedPost) {
+  return {
+    type: UPDATE_POST,
+    payload: {
+      postId: postId,
+      post: updatedPost
+    }
+  }
+}
+
+export function votePostUpdate(dispatch) {
+  return function (postId, up) {
+    return function () {
+      postVote(postId, up)
+        .then(response => dispatch(votePost(postId, response)))
+    }
+  }
+}
