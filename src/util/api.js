@@ -90,3 +90,16 @@ export const putComment = function(commentId, body) {
   };
   return basicPutBuilder.addConfig({body: JSON.stringify(payload)}).invoke(`${baseUrl}/comments/${commentId}`)
 };
+
+
+export const postNewPost = function(title, body, author, category) {
+  const payload = {
+    id: generateUUID(),
+    timestamp:(new Date()).getTime(),
+    title,
+    body,
+    author,
+    category
+  };
+  return basicPostBuilder.addConfig({body: JSON.stringify(payload)}).invoke(`${baseUrl}/posts/`)
+};

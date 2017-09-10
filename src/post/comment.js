@@ -19,7 +19,7 @@ class PostComment extends Component {
     editFormBody: ''
   };
 
-  openEdit =() => {
+  openEdit = () => {
     this.setState(
       {
         editFormBody: this.props.comment.body,
@@ -70,17 +70,23 @@ class PostComment extends Component {
           isOpen={this.state.editCommentOpen}
           className='rdbl modal'
           overlayClassName='rdbl overlay'
-          contentLabel='Modal'
-          >
+          contentLabel='Edit Post Comment Form'
+        >
           <form className="ui form">
             <h4>Edit Comment</h4>
             <div className="field">
               <label>Message</label>
-              <textarea type="text" name="message" placeholder="Enter post comment" required value={this.state.editFormBody} onChange={(e) => this.setState({editFormBody: e.target.value})}/>
+              <textarea type="text" name="message" placeholder="Enter post comment" required
+                        value={this.state.editFormBody}
+                        onChange={(e) => this.setState({editFormBody: e.target.value})}/>
             </div>
             <div className="ui actions">
-              <button type="cancel" className="ui button labeled icon" onClick={this.closeEdit}><i className="icon undo"/>Cancel</button>
-              <button type="submit" className="blue ui button labeled icon" onClick={this.updateComment}><i className="icon send outline"/>Submit</button>
+              <button type="cancel" className="ui button labeled icon" onClick={this.closeEdit}><i
+                className="icon undo"/>Cancel
+              </button>
+              <button type="submit" className="blue ui button labeled icon" onClick={this.updateComment}><i
+                className="icon send outline"/>Submit
+              </button>
             </div>
           </form>
         </Modal>
