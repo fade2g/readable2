@@ -106,4 +106,15 @@ export const postNewPost = function(title, body, author, category) {
 
 export const deletePost = function(postId) {
   return basicDeleteBuilder.invoke(`${baseUrl}/posts/${postId}`)
-}
+};
+
+export const putPost = function(postId, title, body) {
+  const payload = {
+    id: postId,
+    timestamp:(new Date()).getTime(),
+    title,
+    body
+  };
+  return basicPutBuilder.addConfig({body: JSON.stringify(payload)}).invoke(`${baseUrl}/posts/${postId}`)
+};
+

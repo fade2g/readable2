@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types'
 import {connect} from "react-redux";
-import {deletePostDelete, loadPostFetch, votePostUpdate} from "../actions/posts";
+import {deletePostDelete, loadPostFetch, updatePostPut, votePostUpdate} from "../actions/posts";
 import Moment from "react-moment";
 import PostComments from './comments';
 import PostForm from './post-form.component';
@@ -31,6 +31,7 @@ class PostView extends Component {
 
   submitUpdate = (data) => {
     console.log('submit with data', data);
+    this.props.update(this.props.postId, data.title, data.body);
     this.setState({editPost: false});
   };
 
@@ -65,7 +66,7 @@ class PostView extends Component {
             </button>
             <button className="ui button" onClick={this.props.vote(post.id, false)}><i className="caret down icon"/>
             </button>
-            <button className="ui button" onClick={this.showEdit}><i className="upload icon"/></button>
+            <button className="ui blue basic button" onClick={this.showEdit}><i className="edit icon"/>Edit</button>
             <button className="ui red basic button" onClick={this.handleDelete}><i
               className="trash outline icon"/>Delete
             </button>
@@ -108,6 +109,7 @@ function mapDispatchToProps(dispatch) {
   return {
     load: loadPostFetch(dispatch),
     delete: deletePostDelete(dispatch),
+    update: updatePostPut(dispatch),
     vote: votePostUpdate(dispatch)
   }
 }

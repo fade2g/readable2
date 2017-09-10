@@ -60,8 +60,8 @@ class PostComments extends Component {
                      placeholder="Your name"
                      required/>
             </div>
-            <div className="four wide field">&nbsp;</div>
-            <div className="three wide field right floated" style={{textAlign: "right"}}>
+            <div className="two wide field">&nbsp;</div>
+            <div className="four wide field right floated" style={{textAlign: "right"}}>
               <button type="submit" className="right ui blue labeled submit icon button">
                 <i className="icon send outline"/> Add Reply
               </button>

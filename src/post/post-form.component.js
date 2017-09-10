@@ -75,7 +75,7 @@ class PostForm extends Component {
           </div>
           <div className="field">
             <label>Category</label>
-            <div className="ui simple dropdown">
+            <div className="ui simple dropdown" disabled={!this.props.newPost}>
               <i className="icon filter" />{this.state.category ? categories.filter(cat => cat.path === this.state.category)[0].name : 'Select category'}
               <i className="dropdown icon" />
               <div className="menu">
