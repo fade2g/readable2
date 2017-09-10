@@ -21,7 +21,7 @@ class Header extends Component {
       <div className="ui container">
         <span className="item">Readable</span>
         <div className="ui simple dropdown item">
-          select category
+          <i className="icon filter" />select category
           <i className="dropdown icon" />
           <div className="menu">
             {menuItems && menuItems.map((menuItem) => {
@@ -30,7 +30,7 @@ class Header extends Component {
           </div>
         </div>
         <div className="ui simple dropdown item">
-          Sort by
+          <i className="icon selected radio" />Sort by
           <i className="dropdown icon" />
           <div className="menu">
             {sortProperties.map((menuItem) => {
@@ -39,7 +39,7 @@ class Header extends Component {
           </div>
         </div>
         <div className="ui simple dropdown item">
-          Sort Order
+          <i className="icon sort" />Sort Order
           <i className="dropdown icon" />
           <div className="menu">
             {sortOrder.map((menuItem) => {
