@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {addCommentPost, loadPostCommentsFetch} from "../actions/posts";
+import {addCommentPost, deleteCommentDelete, loadPostCommentsFetch} from "../actions/posts";
 import {connect} from "react-redux";
 import PostComment from "./comment"
 
@@ -37,7 +37,12 @@ class PostComments extends Component {
     return (
       <div className="ui comments">
         {comments && comments.map(comment => {
-            return (<PostComment key={comment.id} comment={comment}/>);
+          const callback = ((postId, commentId) => {
+            return () => {
+              this.props.deleteComment(postId, commentId)
+            }
+          })(this.props.postId, comment.id)
+            return (<PostComment key={comment.id} comment={comment} delete={callback}/>);
           }
         )}
         <form className="ui reply form" onSubmit={this.submitComment}>
@@ -71,7 +76,8 @@ function mapStateToProps({comments, loading}) {
 function mapDispatchToProps(dispatch) {
   return {
     loadComments: loadPostCommentsFetch(dispatch),
-    addComment: addCommentPost(dispatch)
+    addComment: addCommentPost(dispatch),
+    deleteComment: deleteCommentDelete(dispatch)
   }
 }
 

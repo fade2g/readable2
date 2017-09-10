@@ -1,4 +1,4 @@
-import {ADD_COMMENT, LOAD_COMMENTS, UPDATE_COMMENT} from "../actions/posts";
+import {ADD_COMMENT, DELETE_COMMENT, LOAD_COMMENTS, UPDATE_COMMENT} from "../actions/posts";
 
 export function comments(state = {}, action) {
   const {type, payload} = action;
@@ -18,6 +18,12 @@ export function comments(state = {}, action) {
         ...state,
         [payload.postId]: [payload.comment].concat(state[payload.postId])
       };
+    case DELETE_COMMENT: {
+      return {
+        ...state,
+        [payload.postId]: state[payload.postId].filter(comment => comment.id !== payload.commentId)
+      }
+    }
     default:
       return state;
   }

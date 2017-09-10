@@ -1,4 +1,7 @@
-import {fetchPost, fetchPostComments, fetchPosts, postCommentVote, postNewComment, postVote} from "../util/api";
+import {
+  deleteComment, fetchPost, fetchPostComments, fetchPosts, postCommentVote, postNewComment,
+  postVote
+} from "../util/api";
 import {setLoading, unsetLoading, LOADING_CATEGORY_ENUM} from "./loading";
 
 export const LOAD_POSTS = 'LOAD_POSTS';
@@ -7,6 +10,7 @@ export const LOAD_COMMENTS = 'LOAD_COMMENTS';
 export const UPDATE_POST = 'UPDATE_POST';
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const ADD_COMMENT = 'ADD_COMMENT';
+export const DELETE_COMMENT = 'DELETE_COMMENT';
 
 function loadPostsDispatch(posts) {
   return {
@@ -119,5 +123,22 @@ export function addCommentPost(dispatch) {
   return function (postId, author, body) {
     postNewComment(postId, author, body)
       .then(response => dispatch(addComment(postId, response)))
+  }
+}
+
+function deleteCommentAction(postId, commentId) {
+  return {
+    type: DELETE_COMMENT,
+    payload: {
+      postId,
+      commentId
+    }
+  }
+}
+
+export function deleteCommentDelete(dispatch) {
+  return function (postId, commentId) {
+    deleteComment(commentId)
+      .then(response => dispatch(deleteCommentAction(postId, commentId)))
   }
 }
