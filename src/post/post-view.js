@@ -4,6 +4,8 @@ import {connect} from "react-redux";
 import {deletePostDelete, loadPostFetch, votePostUpdate} from "../actions/posts";
 import Moment from "react-moment";
 import PostComments from './comments';
+import PostForm from './post-form.component';
+import Modal from 'react-modal';
 import {LOADING_CATEGORY_ENUM} from "../actions/loading";
 import {withRouter} from "react-router-dom";
 
@@ -14,6 +16,10 @@ class PostView extends Component {
     postId: PropTypes.string.isRequired
   };
 
+  state = {
+    editPost: false
+  };
+
   componentDidMount() {
     this.props.load(this.props.postId);
   }
@@ -21,6 +27,21 @@ class PostView extends Component {
   handleDelete = () => {
     this.props.delete(this.props.postId);
     this.props.history.push('/');
+  };
+
+  submitUpdate = (data) => {
+    console.log('submit with data', data);
+    this.setState({editPost: false});
+  };
+
+  cancelUpdate = () => {
+    this.setState({editPost: false});
+  };
+
+  showEdit = () => {
+    this.setState({
+      editPost: true
+    });
   };
 
   render() {
@@ -44,8 +65,9 @@ class PostView extends Component {
             </button>
             <button className="ui button" onClick={this.props.vote(post.id, false)}><i className="caret down icon"/>
             </button>
-            <button className="ui button"><i className="upload icon"/></button>
-            <button className="ui floated right red basic button" onClick={this.handleDelete}><i className="trash outline icon"/>Delete
+            <button className="ui button" onClick={this.showEdit}><i className="upload icon"/></button>
+            <button className="ui red basic button" onClick={this.handleDelete}><i
+              className="trash outline icon"/>Delete
             </button>
           </div>
           <br/>
@@ -56,6 +78,18 @@ class PostView extends Component {
           </div>
           <PostComments postId={post.id} className="ui segment"/>
         </div>
+
+        {/* MODAL FOR EDIT OF POST */}
+
+        <Modal
+          isOpen={this.state.editPost}
+          className='rdbl modal'
+          overlayClassName='rdbl overlay'
+          contentLabel='Edit Post Comment Form'
+        >
+          <PostForm submit={this.submitUpdate} cancel={this.cancelUpdate} newPost={false} category={post.category}
+                    title={post.title} body={post.body} author={post.author}/>
+        </Modal>
       </div>
     </article>);
 
