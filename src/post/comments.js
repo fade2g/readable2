@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {loadPostCommentsFetch} from "../actions/posts";
 import {connect} from "react-redux";
 import PostComment from "./comment"
+import {LOADING_CATEGORY_ENUM} from "../actions/loading";
 
 class PostComments extends Component {
 
@@ -25,7 +26,7 @@ class PostComments extends Component {
     const comments = this.props.comments[this.props.postId];
     return (
       <div className="ui comments">
-        Loading State: {this.props.loading.comments[this.props.postId]}
+        Loading State: {this.props.loading[LOADING_CATEGORY_ENUM.COMMENTS][this.props.postId]}
         {comments && comments.map(comment => {
             return (<PostComment key={comment.id} comment={comment} />);
           }

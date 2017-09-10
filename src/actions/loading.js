@@ -1,6 +1,12 @@
 export const SET_LOADING = 'SET_LOADING';
 export const UNSET_LOADING = 'UNSET_LOADING';
 
+export const LOADING_CATEGORY_ENUM = {
+  COMMENTS: 'COMMENTS',
+  POSTS: 'POSTS',
+  POST: 'POST'
+};
+
 export function setLoading(type, unitId) {
   return {
     type: SET_LOADING,

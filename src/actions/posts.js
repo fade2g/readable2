@@ -1,5 +1,5 @@
 import {fetchPost, fetchPostComments, fetchPosts, postCommentVote, postVote} from "../util/api";
-import {setLoading, unsetLoading} from "./loading";
+import {setLoading, unsetLoading, LOADING_CATEGORY_ENUM} from "./loading";
 
 export const LOAD_POSTS = 'LOAD_POSTS';
 export const LOAD_POST = 'LOAD_POST';
@@ -16,8 +16,10 @@ function loadPostsDispatch(posts) {
 
 export const loadPostsFetch = (dispatch) => {
   return function (category) {
+    dispatch(setLoading(LOADING_CATEGORY_ENUM.POSTS, category));
     fetchPosts(category)
       .then((response) => {
+        dispatch(unsetLoading(LOADING_CATEGORY_ENUM.POSTS, category));
         return dispatch(loadPostsDispatch(response))
       })
   }
@@ -34,9 +36,11 @@ function loadPostDispatch(postId, post) {
 }
 
 export const loadPostFetch = (dispatch) => {
-  return function(postId) {
+  return function (postId) {
+    dispatch(setLoading(LOADING_CATEGORY_ENUM.POST, postId));
     fetchPost(postId)
       .then((response) => {
+        dispatch(unsetLoading(LOADING_CATEGORY_ENUM.POST, postId));
         return dispatch(loadPostDispatch(postId, response))
       })
   }
@@ -54,10 +58,10 @@ function loadCommentsDispatch(postId, comments) {
 
 export const loadPostCommentsFetch = (dispatch) => {
   return function (postId) {
-    dispatch(setLoading('comments', postId, true));
+    dispatch(setLoading(LOADING_CATEGORY_ENUM.COMMENTS, postId));
     fetchPostComments(postId)
       .then(response => {
-        dispatch(unsetLoading('comments', postId));
+        dispatch(unsetLoading(LOADING_CATEGORY_ENUM.COMMENTS, postId));
         return dispatch(loadCommentsDispatch(postId, response))
       })
   }
@@ -94,7 +98,7 @@ function voteComment(postId, updatedComment) {
 
 export function voteCommentUpdate(dispatch) {
   return function (commentId, up) {
-    return function() {
+    return function () {
       postCommentVote(commentId, up)
         .then(response => dispatch(voteComment(response.parentId, response)))
     }
