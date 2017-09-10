@@ -26,7 +26,7 @@ class PostComment extends Component {
           <div className="actions">
             <i className="rdbl stacked caret up icon" onClick={this.props.vote(comment.id, true)}/>
             <i className="rdbl stacked caret down icon" onClick={this.props.vote(comment.id, false)}/>
-            <a className="reply">Reply</a>
+            <a className="reply">Delete</a>
           </div>
         </div>
       </div>
@@ -34,7 +34,7 @@ class PostComment extends Component {
   }
 }
 
-function mapStateToProps({}) {
+function mapStateToProps() {
   return {
 
   }

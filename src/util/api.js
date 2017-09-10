@@ -1,3 +1,5 @@
+import {generateUUID} from "./util";
+
 const baseUrl = 'http://localhost:5001';
 
 class FetchBuilder {
@@ -63,3 +65,16 @@ export const postCommentVote = function (commentId, up) {
   return basicPostBuilder.addConfig({body: JSON.stringify(payload)}).invoke(`${baseUrl}/comments/${commentId}`);
 
 };
+
+export const postNewComment = function(postId, author, body) {
+  const payload = {
+    id: generateUUID(),
+    parentId: postId,
+    timestamp: (new Date()).getTime(),
+    author,
+    body
+  };
+  return basicPostBuilder.addConfig({body: JSON.stringify(payload)}).invoke(`${baseUrl}/comments/`)
+};
+
+
