@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types'
+import {connect} from "react-redux";
 
 class PostForm extends Component {
 
@@ -36,8 +37,8 @@ class PostForm extends Component {
     this.setState({author: e.target.value})
   };
 
-  handleChangeCategory = (e) => {
-    this.setState({category: e.target.value})
+  handleChangeCategory = (e, id) => {
+    this.setState({category: id})
   };
 
   handleCancel = (e) => {
@@ -55,7 +56,7 @@ class PostForm extends Component {
   };
 
   render() {
-    const {newPost} = this.props;
+    const {newPost, categories} = this.props;
     return (
       <div>
         <form className="ui form">
@@ -74,7 +75,15 @@ class PostForm extends Component {
           </div>
           <div className="field">
             <label>Category</label>
-            <input type="text" name="post" placeholder="Category" required value={this.state.category} onChange={this.handleChangeCategory}/>
+            <div className="ui simple dropdown">
+              <i className="icon filter" />{this.state.category ? categories.filter(cat => cat.path === this.state.category)[0].name : 'Select category'}
+              <i className="dropdown icon" />
+              <div className="menu">
+                {categories && categories.map((category) => {
+                  return <div className="ui item" key={category.path} onClick={((id) => { return (e) => { this.handleChangeCategory(e, id); }})(category.path)}>{category.name}</div>
+                })}
+              </div>
+            </div>
           </div>
           <div className="ui actions">
             <button type="cancel" className="ui button labeled icon" onClick={this.handleCancel}><i className="icon undo"/>Cancel</button>
@@ -86,4 +95,16 @@ class PostForm extends Component {
   }
 }
 
-export default PostForm
+function mapStateToProps({categories}) {
+  return {
+    categories
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+
+  }
+}
+
+export default connect(mapStateToProps)(PostForm)

@@ -73,7 +73,6 @@ class PostsView extends Component {
     this.setState({
       newPost: false
     });
-    this.props.newPost(data);
   };
 
 }
