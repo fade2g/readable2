@@ -1,4 +1,5 @@
 import {fetchPost, fetchPostComments, fetchPosts, postCommentVote, postVote} from "../util/api";
+import {setLoading, unsetLoading} from "./loading";
 
 export const LOAD_POSTS = 'LOAD_POSTS';
 export const LOAD_POST = 'LOAD_POST';
@@ -53,8 +54,10 @@ function loadCommentsDispatch(postId, comments) {
 
 export const loadPostCommentsFetch = (dispatch) => {
   return function (postId) {
+    dispatch(setLoading('comments', postId, true));
     fetchPostComments(postId)
       .then(response => {
+        dispatch(unsetLoading('comments', postId));
         return dispatch(loadCommentsDispatch(postId, response))
       })
   }

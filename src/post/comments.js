@@ -25,6 +25,7 @@ class PostComments extends Component {
     const comments = this.props.comments[this.props.postId];
     return (
       <div className="ui comments">
+        Loading State: {this.props.loading.comments[this.props.postId]}
         {comments && comments.map(comment => {
             return (<PostComment key={comment.id} comment={comment} />);
           }
@@ -34,9 +35,10 @@ class PostComments extends Component {
   }
 }
 
-function mapStateToProps({comments}) {
+function mapStateToProps({comments, loading}) {
   return {
-    comments
+    comments,
+    loading
   }
 }
 
