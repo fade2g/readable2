@@ -1,5 +1,5 @@
 import {
-  deleteComment, fetchPost, fetchPostComments, fetchPosts, postCommentVote, postNewComment, postNewPost,
+  deleteComment, deletePost, fetchPost, fetchPostComments, fetchPosts, postCommentVote, postNewComment, postNewPost,
   postVote, putComment
 } from "../util/api";
 import {setLoading, unsetLoading, LOADING_CATEGORY_ENUM} from "./loading";
@@ -11,6 +11,7 @@ export const UPDATE_POST = 'UPDATE_POST';
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const DELETE_POST = 'DELETE_POST';
 
 function loadPostsDispatch(posts) {
   return {
@@ -165,5 +166,21 @@ export function newPost(dispatch) {
   return function (title, body, author, category) {
     postNewPost(title, body, author, category)
       .then(response => dispatch(loadPostDispatch(response.id, response)))
+  }
+}
+
+function deletePostAction(postId) {
+  return {
+    type: DELETE_POST,
+    payload: {
+      postId
+    }
+  }
+}
+
+export function deletePostDelete(dispatch) {
+  return function(postId) {
+    deletePost(postId)
+      .then(response => dispatch(deletePostAction(postId)))
   }
 }

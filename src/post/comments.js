@@ -35,30 +35,38 @@ class PostComments extends Component {
     let comments = this.props.comments[this.props.postId];
     comments.sort((comment1, comment2) => comment1.timestamp < comment2.timestamp);
     return (
-      <div className="ui comments">
+      <div className="ui comments fullwidth">
         {comments && comments.map(comment => {
-          const callback = ((postId, commentId) => {
-            return () => {
-              this.props.deleteComment(postId, commentId)
-            }
-          })(this.props.postId, comment.id);
+            const callback = ((postId, commentId) => {
+              return () => {
+                this.props.deleteComment(postId, commentId)
+              }
+            })(this.props.postId, comment.id);
             return (<PostComment key={comment.id} comment={comment} deleteComment={callback}/>);
           }
         )}
+        <div className="ui horizontal divider">
+          Participate
+        </div>
         <form className="ui reply form" onSubmit={this.submitComment}>
           <div className="field">
             <textarea ref={(input) => this.postComment = input}
                       placeholder="Post a reply"
                       required/>
           </div>
-          <div className="field">
-            <input ref={(input) => this.postAuthor = input}
-                   placeholder="Your name"
-                   required/>
+          <div className="fields">
+            <div className="ten wide field">
+              <input ref={(input) => this.postAuthor = input}
+                     placeholder="Your name"
+                     required/>
+            </div>
+            <div className="four wide field">&nbsp;</div>
+            <div className="three wide field right floated" style={{textAlign: "right"}}>
+              <button type="submit" className="right ui blue labeled submit icon button">
+                <i className="icon send outline"/> Add Reply
+              </button>
+            </div>
           </div>
-          <button type="submit" className="ui blue labeled submit icon button">
-            <i className="icon send outline"/> Add Reply
-          </button>
         </form>
       </div>
     )

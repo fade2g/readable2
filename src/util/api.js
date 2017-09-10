@@ -103,3 +103,7 @@ export const postNewPost = function(title, body, author, category) {
   };
   return basicPostBuilder.addConfig({body: JSON.stringify(payload)}).invoke(`${baseUrl}/posts/`)
 };
+
+export const deletePost = function(postId) {
+  return basicDeleteBuilder.invoke(`${baseUrl}/posts/${postId}`)
+}

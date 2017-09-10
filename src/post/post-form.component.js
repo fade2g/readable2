@@ -71,7 +71,7 @@ class PostForm extends Component {
           </div>
           <div className="field">
             <label>Author</label>
-            <input type="text" name="post" placeholder="Author" required value={this.state.author} onChange={this.handleChangeAuthor}/>
+            <input type="text" name="post" placeholder="Author" required value={this.state.author} onChange={this.handleChangeAuthor} disabled={!this.props.newPost}/>
           </div>
           <div className="field">
             <label>Category</label>
