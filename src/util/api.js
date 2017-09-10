@@ -34,6 +34,7 @@ const basicFetchBuilder = new FetchBuilder({
 const basicGetBuilder = basicFetchBuilder.addConfig({method: 'GET'});
 const basicPostBuilder = basicFetchBuilder.addConfig({method: 'POST'});
 const basicDeleteBuilder = basicFetchBuilder.addConfig({method: 'DELETE'});
+const basicPutBuilder = basicFetchBuilder.addConfig({method: 'PUT'});
 
 export const fetchCategories = function () {
   return basicGetBuilder.invoke(`${baseUrl}/categories`);
@@ -80,4 +81,12 @@ export const postNewComment = function(postId, author, body) {
 
 export const deleteComment = function(commentId) {
   return basicDeleteBuilder.invoke(`${baseUrl}/comments/${commentId}`)
+};
+
+export const putComment = function(commentId, body) {
+  const payload = {
+    timestamp:(new Date()).getTime(),
+    body
+  };
+  return basicPutBuilder.addConfig({body: JSON.stringify(payload)}).invoke(`${baseUrl}/comments/${commentId}`)
 };

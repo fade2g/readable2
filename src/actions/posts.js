@@ -1,6 +1,6 @@
 import {
   deleteComment, fetchPost, fetchPostComments, fetchPosts, postCommentVote, postNewComment,
-  postVote
+  postVote, putComment
 } from "../util/api";
 import {setLoading, unsetLoading, LOADING_CATEGORY_ENUM} from "./loading";
 
@@ -140,5 +140,23 @@ export function deleteCommentDelete(dispatch) {
   return function (postId, commentId) {
     deleteComment(commentId)
       .then(response => dispatch(deleteCommentAction(postId, commentId)))
+  }
+}
+
+
+function updateComment(newComment) {
+  return {
+    type: UPDATE_COMMENT,
+    payload: {
+      postId: newComment.parentId,
+      comment: newComment
+    }
+  }
+}
+
+export function editCommentPut(dispatch) {
+  return (commentId, body) => {
+    putComment(commentId, body)
+      .then(response => dispatch(updateComment(response)))
   }
 }

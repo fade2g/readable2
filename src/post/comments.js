@@ -41,8 +41,8 @@ class PostComments extends Component {
             return () => {
               this.props.deleteComment(postId, commentId)
             }
-          })(this.props.postId, comment.id)
-            return (<PostComment key={comment.id} comment={comment} delete={callback}/>);
+          })(this.props.postId, comment.id);
+            return (<PostComment key={comment.id} comment={comment} deleteComment={callback}/>);
           }
         )}
         <form className="ui reply form" onSubmit={this.submitComment}>
@@ -57,7 +57,7 @@ class PostComments extends Component {
                    required/>
           </div>
           <button type="submit" className="ui blue labeled submit icon button">
-            <i className="icon edit"/> Add Reply
+            <i className="icon send outline"/> Add Reply
           </button>
         </form>
       </div>
