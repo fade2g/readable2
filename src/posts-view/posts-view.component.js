@@ -39,8 +39,9 @@ class PostsView extends Component {
             return (<PostPreview key={post.id} post={post}/>)
           })}
         </div>
+        <br />
         <button className="ui blue labeled submit icon button" onClick={this.openPostModal}>
-          <i className="icon write square"/> New Post
+          <i className="icon send outline"/> New Post
         </button>
         <Modal
           isOpen={this.state.newPost}

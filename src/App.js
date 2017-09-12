@@ -21,7 +21,7 @@ class App extends Component {
           return <Link key={cat.path} to={cat.path !== null ? `/category/${cat.path}` : '/'}
                        className="item">{cat.name}</Link>
         })}
-        <div className="main container ui padded segment">
+        <div className="main container ui basic segment">
           <Route path="/category/:category" render={(props) => (
             <PostsView category={props.match.params.category}/>
           )}/>

@@ -68,8 +68,8 @@ class PostView extends Component {
             <button className="ui button" onClick={this.props.vote(post.id, false)}><i className="caret down icon"/>
             </button>
             <button className="ui blue basic button" onClick={this.showEdit}><i className="edit icon"/>Edit</button>
-            <button className="ui red basic button" onClick={this.handleDelete}><i
-              className="trash outline icon"/>Delete
+            <button className="ui red basic button" onClick={this.handleDelete}>
+              <i className="trash outline icon"/>Delete
             </button>
           </div>
           <br/>

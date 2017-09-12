@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 
 class PostForm extends Component {
 
+  // noinspection JSUnusedGlobalSymbols
   static propTypes = {
     submit: PropTypes.func.isRequired,
     cancel: PropTypes.func.isRequired,
@@ -41,7 +42,7 @@ class PostForm extends Component {
     this.setState({category: id})
   };
 
-  handleCancel = (e) => {
+  handleCancel = () => {
     this.props.cancel();
   };
 
@@ -56,38 +57,54 @@ class PostForm extends Component {
   };
 
   render() {
-    const {newPost, categories} = this.props;
+    const {newPost, categories, category} = this.props;
     return (
       <div>
         <form className="ui form">
           <h4>{newPost ? 'New Post' : 'Edit Post'}</h4>
           <div className="field">
             <label>Title</label>
-            <input type="text" name="post" placeholder="Title" required value={this.state.title} onChange={this.handleChangeTitle}/>
+            <input type="text" name="post" placeholder="Title" required value={this.state.title}
+                   onChange={this.handleChangeTitle}/>
           </div>
           <div className="field">
             <label>Post</label>
-            <textarea type="text" name="post" placeholder="Post" required value={this.state.body} onChange={this.handleChangeBody}/>
+            <textarea type="text" name="post" placeholder="Post" required value={this.state.body}
+                      onChange={this.handleChangeBody}/>
           </div>
           <div className="field">
             <label>Author</label>
-            <input type="text" name="post" placeholder="Author" required value={this.state.author} onChange={this.handleChangeAuthor} disabled={!this.props.newPost}/>
+            <input type="text" name="post" placeholder="Author" required value={this.state.author}
+                   onChange={this.handleChangeAuthor} disabled={!this.props.newPost}/>
           </div>
           <div className="field">
             <label>Category</label>
+            {this.props.newPost &&
             <div className="ui simple dropdown" disabled={!this.props.newPost}>
-              <i className="icon filter" />{this.state.category ? categories.filter(cat => cat.path === this.state.category)[0].name : 'Select category'}
-              <i className="dropdown icon" />
+              {this.state.category ? categories.filter(cat => cat.path === this.state.category)[0].name : 'Select category'}
+              <i className="dropdown icon"/>
               <div className="menu">
                 {categories && categories.map((category) => {
-                  return <div className="ui item" key={category.path} onClick={((id) => { return (e) => { this.handleChangeCategory(e, id); }})(category.path)}>{category.name}</div>
+                  return <div className="ui item" key={category.path} onClick={((id) => {
+                    return (e) => {
+                      this.handleChangeCategory(e, id);
+                    }
+                  })(category.path)}>{category.name}</div>
                 })}
               </div>
             </div>
+            }
+            {!this.props.newPost &&
+              <span>{category}</span>
+            }
           </div>
           <div className="ui actions">
-            <button type="cancel" className="ui button labeled icon" onClick={this.handleCancel}><i className="icon undo"/>Cancel</button>
-            <button type="submit" className="blue ui button labeled icon" onClick={this.handleSubmit}><i className="icon send outline"/>Submit</button>
+            <button type="cancel" className="ui button labeled icon" onClick={this.handleCancel}><i
+              className="icon undo"/>Cancel
+            </button>
+            <button type="submit" className="blue ui button labeled icon" onClick={this.handleSubmit}><i
+              className="icon send outline"/>Submit
+            </button>
           </div>
         </form>
       </div>
@@ -98,12 +115,6 @@ class PostForm extends Component {
 function mapStateToProps({categories}) {
   return {
     categories
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-
   }
 }
 
