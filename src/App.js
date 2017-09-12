@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import {Link, Route, withRouter} from "react-router-dom";
+import {Link, Route, Switch, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {loadCategoriesFetch} from "./actions/categories";
 import Header from "./header/header.component";
@@ -22,15 +22,17 @@ class App extends Component {
                        className="item">{cat.name}</Link>
         })}
         <div className="main container ui basic segment">
-          <Route path="/category/:category" render={(props) => (
-            <PostsView category={props.match.params.category}/>
-          )}/>
-          <Route exact path="/" render={(props) => (
-            <PostsView category={undefined}/>)
-          }/>
-          <Route path="/:categoryId/:postId" render={(props) => (
-            <PostView categoryId={props.match.params.categoryId} postId={props.match.params.postId}/>
-          )}/>
+          <Switch>
+            <Route exact path="/category/:category" render={(props) => (
+              <PostsView category={props.match.params.category}/>
+            )}/>
+            <Route exact path="/" render={(props) => (
+              <PostsView category={undefined}/>)
+            }/>
+            <Route exact path="/:categoryId/:postId" render={(props) => (
+              <PostView categoryId={props.match.params.categoryId} postId={props.match.params.postId}/>
+            )}/>
+          </Switch>
         </div>
       </div>
     );
