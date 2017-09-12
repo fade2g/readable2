@@ -13,7 +13,7 @@ export const loadCategoriesFetch = (dispatch)  => {
   return function () {
     fetchCategories('categories')
       .then((response) => {
-        return dispatch(loadCategoriesDispatch(response.categories))
+        return dispatch(loadCategoriesDispatch(response && response.categories ? response.categories: []))
       })
   }
 };

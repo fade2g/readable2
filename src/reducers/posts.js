@@ -4,12 +4,12 @@ export function posts(state = {}, action) {
   const {type, payload} = action;
   switch (type) {
     case LOAD_POSTS:
-      return payload.reduce((accumulator, post) => {
+      return payload ? payload.reduce((accumulator, post) => {
         return post.deleted ? accumulator : {
           ...accumulator,
           [post.id]: post
         }
-      }, {});
+      }, {}) : {}; 
     case LOAD_POST:
     case UPDATE_POST:
       return {
