@@ -36,16 +36,16 @@ const basicPostBuilder = basicFetchBuilder.addConfig({method: 'POST'});
 const basicDeleteBuilder = basicFetchBuilder.addConfig({method: 'DELETE'});
 const basicPutBuilder = basicFetchBuilder.addConfig({method: 'PUT'});
 
-export const fetchCategories = function () {
+export const getCategories = function () {
   return basicGetBuilder.invoke(`${baseUrl}/categories`);
 };
 
-export const fetchPosts = function (category) {
+export const getPosts = function (category) {
   const url = category ? `${baseUrl}/${category}/posts/` : `${baseUrl}/posts/`;
   return basicGetBuilder.invoke(url);
 };
 
-export const fetchPost = (postId) => {
+export const getPost = (postId) => {
   return basicGetBuilder.invoke(`${baseUrl}/posts/${postId}`);
 };
 
@@ -68,7 +68,7 @@ export const postCommentVote = function (commentId, up) {
 
 };
 
-export const postNewComment = function(postId, author, body) {
+export const postComment = function(postId, author, body) {
   const payload = {
     id: generateUUID(),
     parentId: postId,
@@ -92,7 +92,7 @@ export const putComment = function(commentId, body) {
 };
 
 
-export const postNewPost = function(title, body, author, category) {
+export const postPost = function(title, body, author, category) {
   const payload = {
     id: generateUUID(),
     timestamp:(new Date()).getTime(),

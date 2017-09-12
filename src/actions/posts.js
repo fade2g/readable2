@@ -1,5 +1,5 @@
 import {
-  deleteComment, deletePost, fetchPost, fetchPostComments, fetchPosts, postCommentVote, postNewComment, postNewPost,
+  deleteComment, deletePost, getPost, fetchPostComments, getPosts, postCommentVote, postComment, postPost,
   postVote, putComment, putPost
 } from "../util/api";
 import {setLoadingAction, unsetLoadingAction, LOADING_CATEGORY_ENUM} from "./loading";
@@ -23,7 +23,7 @@ function loadPostsAction(posts) {
 export const backendLoadPosts = (dispatch) => {
   return function (category) {
     dispatch(setLoadingAction(LOADING_CATEGORY_ENUM.POSTS, category));
-    fetchPosts(category)
+    getPosts(category)
       .then((response) => {
         dispatch(unsetLoadingAction(LOADING_CATEGORY_ENUM.POSTS, category));
         return dispatch(loadPostsAction(response))
@@ -44,7 +44,7 @@ function loadPostAction(postId, post) {
 export const backendLoadPost = (dispatch) => {
   return function (postId) {
     dispatch(setLoadingAction(LOADING_CATEGORY_ENUM.POST, postId));
-    fetchPost(postId)
+    getPost(postId)
       .then((response) => {
         dispatch(unsetLoadingAction(LOADING_CATEGORY_ENUM.POST, postId));
         return dispatch(loadPostAction(postId, response))
@@ -122,7 +122,7 @@ function newCommentAction(postId, newComment) {
 }
 export function backendNewComment(dispatch) {
   return function (postId, author, body) {
-    postNewComment(postId, author, body)
+    postComment(postId, author, body)
       .then(response => dispatch(newCommentAction(postId, response)))
   }
 }
@@ -154,7 +154,7 @@ export function backendUpdateComment(dispatch) {
 
 export function backendNewPost(dispatch) {
   return function (title, body, author, category) {
-    postNewPost(title, body, author, category)
+    postPost(title, body, author, category)
       .then(response => dispatch(loadPostAction(response.id, response)))
   }
 }

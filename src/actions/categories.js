@@ -1,4 +1,4 @@
-import {fetchCategories} from "../util/api";
+import {getCategories} from "../util/api";
 
 export const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
 
@@ -11,7 +11,7 @@ function loadCategoriesAction(categories) {
 
 export const loadCategoriesFetch = (dispatch)  => {
   return function () {
-    fetchCategories('categories')
+    getCategories('categories')
       .then((response) => {
         return dispatch(loadCategoriesAction(response && response.categories ? response.categories: []))
       })
