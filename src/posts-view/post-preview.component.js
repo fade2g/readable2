@@ -8,6 +8,7 @@ import "./post-preview.css";
 
 class PostPreview extends Component {
 
+  // noinspection JSUnusedGlobalSymbols
   static propTypes = {
     post: PropTypes.object.isRequired
   };
@@ -25,7 +26,7 @@ class PostPreview extends Component {
           <i className="rdbl stacked caret down icon"  onClick={this.props.vote(post.id, false)}/>
         </div>
         <div className="rdbl post content">
-          <h2 className="ui small header"><Link to={`/post/${post.id}`}><b>{post.title}</b></Link></h2>
+          <h2 className="ui small header"><Link to={`/${post.category}/${post.id}`}><b>{post.title}</b></Link></h2>
           <div>
             {post.voteScore} points by {post.author} <Moment fromNow>{new Date(post.timestamp)}</Moment>, <Link to={`/post/${post.id}`}>{comments[post.id] ? comments[post.id].length : 'no'} comments</Link>
           </div>

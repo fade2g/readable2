@@ -13,7 +13,8 @@ class PostView extends Component {
 
   // noinspection JSUnusedGlobalSymbols
   static propTypes = {
-    postId: PropTypes.string.isRequired
+    postId: PropTypes.string.isRequired,
+    categoryId: PropTypes.string.isRequired
   };
 
   state = {

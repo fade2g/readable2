@@ -28,8 +28,8 @@ class App extends Component {
           <Route exact path="/" render={(props) => (
             <PostsView category={undefined}/>)
           }/>
-          <Route path="/post/:postId" render={(props) => (
-            <PostView postId={props.match.params.postId}/>
+          <Route path="/:categoryId/:postId" render={(props) => (
+            <PostView categoryId={props.match.params.categoryId} postId={props.match.params.postId}/>
           )}/>
         </div>
       </div>
