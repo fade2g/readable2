@@ -1,6 +1,6 @@
 import {generateUUID} from "./util";
 
-const baseUrl = 'http://localhost:5001';
+const baseUrl = 'http://localhost:3001';
 
 class FetchBuilder {
   constructor(initialConfig) {
