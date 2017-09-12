@@ -36,7 +36,13 @@ or
 
 `yarn start`
 
-The application will launch by default on port `3000`, so it will be available under http://localhost:3000/ 
+The application will launch by default on port `3000`, so it will be available under http://localhost:3000/
+
+As a convenience feature, the backend server and the frontend application can be started together with the following command:
+
+`npm run start-all`
+
+**Note**: Two command promps will be opened (this has been tested on a windows machine)  
 
 ## Optional: Installation of Backend Server
 
