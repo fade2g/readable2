@@ -36,7 +36,7 @@ class PostComments extends Component {
     comments.sort((comment1, comment2) => comment1.timestamp < comment2.timestamp);
     return (
       <div className="ui comments fullwidth">
-        {comments && comments.map(comment => {
+        {comments && comments.length > 0 && comments.map(comment => {
             const callback = ((postId, commentId) => {
               return () => {
                 this.props.deleteComment(postId, commentId)
@@ -45,6 +45,9 @@ class PostComments extends Component {
             return (<PostComment key={comment.id} comment={comment} deleteComment={callback}/>);
           }
         )}
+        {(!comments || comments.length === 0) &&
+        <p>Empty here but we're sure you've got something to say about it. Go participate</p>
+        }
         <div className="ui horizontal divider">
           Participate
         </div>

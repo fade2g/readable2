@@ -34,11 +34,15 @@ class PostsView extends Component {
     });
     const loading = this.props.loading[LOADING_CATEGORY_ENUM.POSTS] && this.props.loading[LOADING_CATEGORY_ENUM.POSTS][this.props.category];
     return (<div className="posts-view very padded text container segment">
+        {postsArray && postsArray.length > 0 &&
         <div className={"ui " + (loading ? "active loader" : "")}>
           {postsArray.map(post => {
             return (<PostPreview key={post.id} post={post}/>)
           })}
-        </div>
+        </div>}
+        {(!postsArray || postsArray.length === 0) &&
+        <p>There are not posts - the potential is huge. Make yourself heard.</p>
+        }
         <br />
         <button className="ui blue labeled submit icon button" onClick={this.openPostModal}>
           <i className="icon send outline"/> New Post
