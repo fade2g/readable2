@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types'
 import {connect} from "react-redux";
-import {deletePostDelete, loadPostFetch, updatePostPut, votePostUpdate} from "../actions/posts";
+import {backendDeletePost, backendLoadPost, backendUpdatePost, backendVotePost} from "../actions/posts";
 import Moment from "react-moment";
 import PostComments from './comments';
 import PostForm from './post-form.component';
@@ -108,10 +108,10 @@ function mapStateToProps({categories, posts, loading}) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    load: loadPostFetch(dispatch),
-    delete: deletePostDelete(dispatch),
-    update: updatePostPut(dispatch),
-    vote: votePostUpdate(dispatch)
+    load: backendLoadPost(dispatch),
+    delete: backendDeletePost(dispatch),
+    update: backendUpdatePost(dispatch),
+    vote: backendVotePost(dispatch)
   }
 }
 

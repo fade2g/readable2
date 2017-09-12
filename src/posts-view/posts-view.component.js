@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {loadPostsFetch, newPost} from "../actions/posts";
+import {backendLoadPosts, backendNewPost} from "../actions/posts";
 import {withRouter} from "react-router-dom";
 import PostPreview from "./post-preview.component";
 import PostForm from "../post/post-form.component";
@@ -88,8 +88,8 @@ function mapStateToProps({posts, ui, loading}) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    load: loadPostsFetch(dispatch),
-    newPost: newPost(dispatch)
+    load: backendLoadPosts(dispatch),
+    newPost: backendNewPost(dispatch)
   }
 }
 

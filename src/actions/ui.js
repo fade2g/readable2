@@ -5,14 +5,14 @@ export const UI_LOADING_STATE = 'UI_LOADING_STATE';
 export const SORT_ORDER_ASC = 'ASC';
 export const SORT_ORDER_DESC = 'DESC';
 
-export function setPostSortProperty(property) {
+export function setPostSortPropertyAction(property) {
   return {
     type: UI_SORT_PROPERTY,
     payload: property
   }
 }
 
-export function setPostSortOrder(order) {
+export function setPostSortOrderAction(order) {
   return {
     type: UI_SORT_ORDER,
     payload: order

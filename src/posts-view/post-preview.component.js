@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {deletePostDelete, loadPostCommentsFetch, updatePostPut, votePostUpdate} from "../actions/posts";
+import {backendDeletePost, backendLoadPostComments, backendUpdatePost, backendVotePost} from "../actions/posts";
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
@@ -87,10 +87,10 @@ function mapStateToProps({posts, comments}) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadComments: loadPostCommentsFetch(dispatch),
-    delete: deletePostDelete(dispatch),
-    update: updatePostPut(dispatch),
-    vote: votePostUpdate(dispatch)
+    loadComments: backendLoadPostComments(dispatch),
+    delete: backendDeletePost(dispatch),
+    update: backendUpdatePost(dispatch),
+    vote: backendVotePost(dispatch)
   }
 }
 

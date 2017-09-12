@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types'
 import Moment from 'react-moment';
 import Modal from 'react-modal';
-import {editCommentPut, voteCommentUpdate} from "../actions/posts";
+import {backendUpdateComment, backendVoteComment} from "../actions/posts";
 import {connect} from "react-redux";
 
 class PostComment extends Component {
@@ -101,8 +101,8 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
   return {
-    vote: voteCommentUpdate(dispatch),
-    updateComment: editCommentPut(dispatch)
+    vote: backendVoteComment(dispatch),
+    updateComment: backendUpdateComment(dispatch)
   }
 }
 

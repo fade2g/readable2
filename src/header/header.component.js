@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
-import {setPostSortOrder, setPostSortProperty, SORT_ORDER_ASC, SORT_ORDER_DESC} from "../actions/ui";
+import {setPostSortOrderAction, setPostSortPropertyAction, SORT_ORDER_ASC, SORT_ORDER_DESC} from "../actions/ui";
 
 
 class Header extends Component {
@@ -61,8 +61,8 @@ function mapStateToProps({categories}) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setOrder: (order) => dispatch(setPostSortOrder(order)),
-    setProperty: (property) => dispatch(setPostSortProperty(property))
+    setOrder: (order) => dispatch(setPostSortOrderAction(order)),
+    setProperty: (property) => dispatch(setPostSortPropertyAction(property))
   }
 }
 

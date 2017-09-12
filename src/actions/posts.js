@@ -2,7 +2,7 @@ import {
   deleteComment, deletePost, fetchPost, fetchPostComments, fetchPosts, postCommentVote, postNewComment, postNewPost,
   postVote, putComment, putPost
 } from "../util/api";
-import {setLoading, unsetLoading, LOADING_CATEGORY_ENUM} from "./loading";
+import {setLoadingAction, unsetLoadingAction, LOADING_CATEGORY_ENUM} from "./loading";
 
 export const LOAD_POSTS = 'LOAD_POSTS';
 export const LOAD_POST = 'LOAD_POST';
@@ -13,25 +13,25 @@ export const ADD_COMMENT = 'ADD_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
 export const DELETE_POST = 'DELETE_POST';
 
-function loadPostsDispatch(posts) {
+function loadPostsAction(posts) {
   return {
     type: LOAD_POSTS,
     payload: posts
   }
 }
 
-export const loadPostsFetch = (dispatch) => {
+export const backendLoadPosts = (dispatch) => {
   return function (category) {
-    dispatch(setLoading(LOADING_CATEGORY_ENUM.POSTS, category));
+    dispatch(setLoadingAction(LOADING_CATEGORY_ENUM.POSTS, category));
     fetchPosts(category)
       .then((response) => {
-        dispatch(unsetLoading(LOADING_CATEGORY_ENUM.POSTS, category));
-        return dispatch(loadPostsDispatch(response))
+        dispatch(unsetLoadingAction(LOADING_CATEGORY_ENUM.POSTS, category));
+        return dispatch(loadPostsAction(response))
       })
   }
 };
 
-function loadPostDispatch(postId, post) {
+function loadPostAction(postId, post) {
   return {
     type: LOAD_POST,
     payload: {
@@ -41,18 +41,18 @@ function loadPostDispatch(postId, post) {
   }
 }
 
-export const loadPostFetch = (dispatch) => {
+export const backendLoadPost = (dispatch) => {
   return function (postId) {
-    dispatch(setLoading(LOADING_CATEGORY_ENUM.POST, postId));
+    dispatch(setLoadingAction(LOADING_CATEGORY_ENUM.POST, postId));
     fetchPost(postId)
       .then((response) => {
-        dispatch(unsetLoading(LOADING_CATEGORY_ENUM.POST, postId));
-        return dispatch(loadPostDispatch(postId, response))
+        dispatch(unsetLoadingAction(LOADING_CATEGORY_ENUM.POST, postId));
+        return dispatch(loadPostAction(postId, response))
       })
   }
 };
 
-function loadCommentsDispatch(postId, comments) {
+function loadCommentsAction(postId, comments) {
   return {
     type: LOAD_COMMENTS,
     payload: {
@@ -62,18 +62,18 @@ function loadCommentsDispatch(postId, comments) {
   }
 }
 
-export const loadPostCommentsFetch = (dispatch) => {
+export const backendLoadPostComments = (dispatch) => {
   return function (postId) {
-    dispatch(setLoading(LOADING_CATEGORY_ENUM.COMMENTS, postId));
+    dispatch(setLoadingAction(LOADING_CATEGORY_ENUM.COMMENTS, postId));
     fetchPostComments(postId)
       .then(response => {
-        dispatch(unsetLoading(LOADING_CATEGORY_ENUM.COMMENTS, postId));
-        return dispatch(loadCommentsDispatch(postId, response))
+        dispatch(unsetLoadingAction(LOADING_CATEGORY_ENUM.COMMENTS, postId));
+        return dispatch(loadCommentsAction(postId, response))
       })
   }
 };
 
-function votePost(postId, updatedPost) {
+function updatePostAction(postId, updatedPost) {
   return {
     type: UPDATE_POST,
     payload: {
@@ -83,16 +83,16 @@ function votePost(postId, updatedPost) {
   }
 }
 
-export function votePostUpdate(dispatch) {
+export function backendVotePost(dispatch) {
   return function (postId, up) {
     return function () {
       postVote(postId, up)
-        .then(response => dispatch(votePost(postId, response)))
+        .then(response => dispatch(updatePostAction(postId, response)))
     }
   }
 }
 
-function voteComment(postId, updatedComment) {
+function updateCommentAction(postId, updatedComment) {
   return {
     type: UPDATE_COMMENT,
     payload: {
@@ -102,16 +102,16 @@ function voteComment(postId, updatedComment) {
   }
 }
 
-export function voteCommentUpdate(dispatch) {
+export function backendVoteComment(dispatch) {
   return function (commentId, up) {
     return function () {
       postCommentVote(commentId, up)
-        .then(response => dispatch(voteComment(response.parentId, response)))
+        .then(response => dispatch(updateCommentAction(response.parentId, response)))
     }
   }
 }
 
-function addComment(postId, newComment) {
+function newCommentAction(postId, newComment) {
   return {
     type: ADD_COMMENT,
     payload: {
@@ -120,10 +120,10 @@ function addComment(postId, newComment) {
     }
   }
 }
-export function addCommentPost(dispatch) {
+export function backendNewComment(dispatch) {
   return function (postId, author, body) {
     postNewComment(postId, author, body)
-      .then(response => dispatch(addComment(postId, response)))
+      .then(response => dispatch(newCommentAction(postId, response)))
   }
 }
 
@@ -137,7 +137,7 @@ function deleteCommentAction(postId, commentId) {
   }
 }
 
-export function deleteCommentDelete(dispatch) {
+export function backendDeleteComment(dispatch) {
   return function (postId, commentId) {
     deleteComment(commentId)
       .then(response => dispatch(deleteCommentAction(postId, commentId)))
@@ -145,27 +145,17 @@ export function deleteCommentDelete(dispatch) {
 }
 
 
-function updateComment(newComment) {
-  return {
-    type: UPDATE_COMMENT,
-    payload: {
-      postId: newComment.parentId,
-      comment: newComment
-    }
-  }
-}
-
-export function editCommentPut(dispatch) {
+export function backendUpdateComment(dispatch) {
   return (commentId, body) => {
     putComment(commentId, body)
-      .then(response => dispatch(updateComment(response)))
+      .then(response => dispatch(updateCommentAction(response.parentId, response)))
   }
 }
 
-export function newPost(dispatch) {
+export function backendNewPost(dispatch) {
   return function (title, body, author, category) {
     postNewPost(title, body, author, category)
-      .then(response => dispatch(loadPostDispatch(response.id, response)))
+      .then(response => dispatch(loadPostAction(response.id, response)))
   }
 }
 
@@ -178,16 +168,16 @@ function deletePostAction(postId) {
   }
 }
 
-export function deletePostDelete(dispatch) {
+export function backendDeletePost(dispatch) {
   return function(postId) {
     deletePost(postId)
       .then(response => dispatch(deletePostAction(postId)))
   }
 }
 
-export function updatePostPut(dispatch) {
+export function backendUpdatePost(dispatch) {
   return function(postId, title, body) {
     putPost(postId, title, body)
-      .then(response => dispatch(loadPostDispatch(postId, response)))
+      .then(response => dispatch(loadPostAction(postId, response)))
   }
 }

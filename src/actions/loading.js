@@ -7,7 +7,7 @@ export const LOADING_CATEGORY_ENUM = {
   POST: 'POST'
 };
 
-export function setLoading(type, unitId) {
+export function setLoadingAction(type, unitId) {
   return {
     type: SET_LOADING,
     payload: {
@@ -17,7 +17,7 @@ export function setLoading(type, unitId) {
   }
 }
 
-export function unsetLoading(type, unitId) {
+export function unsetLoadingAction(type, unitId) {
   return {
     type: UNSET_LOADING,
     payload: {

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {addCommentPost, deleteCommentDelete, loadPostCommentsFetch} from "../actions/posts";
+import {backendNewComment, backendDeleteComment, backendLoadPostComments} from "../actions/posts";
 import {connect} from "react-redux";
 import PostComment from "./comment"
 
@@ -83,9 +83,9 @@ function mapStateToProps({comments, loading}) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadComments: loadPostCommentsFetch(dispatch),
-    addComment: addCommentPost(dispatch),
-    deleteComment: deleteCommentDelete(dispatch)
+    loadComments: backendLoadPostComments(dispatch),
+    addComment: backendNewComment(dispatch),
+    deleteComment: backendDeleteComment(dispatch)
   }
 }
 
