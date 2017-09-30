@@ -24,7 +24,7 @@ Installation is done together with installation of the react project (as it shar
 
 Starting the server:
 
-`npm run start-sever`
+`npm run start-server`
 
 
 ## Start
